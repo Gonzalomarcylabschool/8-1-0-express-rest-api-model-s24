@@ -1,14 +1,26 @@
-const express = require('express');
-const path = require('path');
-const getId = require('./utils/getId')
+const express = require('express'); // import express
+const path = require('path');// import path
+const getId = require('./utils/getId')// import getId
+const {
+  serveFellows,
+  serveFellow,
+  createFellow,
+  updateFellow,
+  deleteFellow
+} = require('./controllers/fellowControllers');
 
-const pathToFrontendDist = path.join(__dirname, '../frontend/dist');
-const app = express();
+// why do we need an absolute path to the frontend/dist folder?
+// because the path is relative to the file that is running the code
+const pathToFrontendDist = path.join(__dirname, '../frontend/dist');// absolute path to the frontend/dist folder
+const app = express(); // create an express app
 
 ////////////////////////
 // Middleware
 ////////////////////////
 
+// Middleware is a function that runs between the request and the response
+
+// when a request is made to the server
 const logRoutes = (req, res, next) => {
   const time = (new Date()).toLocaleString();
   req.time = time;
@@ -16,6 +28,7 @@ const logRoutes = (req, res, next) => {
   next();
 };
 
+// express.static is a middleware that serves static files
 const serveStatic = express.static(pathToFrontendDist);
 
 // A new middleware has appeared! 
@@ -33,58 +46,59 @@ app.use(parseJSON);   // Parses request body JSON
 
 // The "in-memory" array. It is created and stored in RAM when the
 // server application starts/restarts. It does not "persist"
-const fellowsList = [
-  { name: 'ben', id: getId() },
-  { name: 'gonzalo', id: getId() },
-  { name: 'carmen', id: getId() },
-  { name: 'zo', id: getId() },
-];
+// const fellowsList = [
+//   { name: 'ben', id: getId() },
+//   { name: 'gonzalo', id: getId() },
+//   { name: 'carmen', id: getId() },
+//   { name: 'zo', id: getId() },
+// ];
+// fellowsList.push({ name: 'ben', id: getId() });
 
-// app.get('/api/fellows', serveFellows);
-const serveFellows = (req, res, next) => {
-  res.send(fellowsList);
-}
+// // app.get('/api/fellows', serveFellows);
+// const serveFellows = (req, res, next) => {
+//   res.send(fellowsList);
+// }
 
-// app.get('/api/fellows/:id', serveFellow);
-// GET /api/fellows/3
-const serveFellow = (req, res, next) => {
-  const { id } = req.params;
-  const fellow = fellowsList.find((fellow) => Number(id) === fellow.id);
-  if (!fellow) return res.status(404).send(`No fellow with the id ${id}`);
-  res.send(fellow);
-};
+// // app.get('/api/fellows/:id', serveFellow);
+// // GET /api/fellows/3
+// const serveFellow = (req, res, next) => {
+//   const { id } = req.params;
+//   const fellow = fellowsList.find((fellow) => Number(id) === fellow.id);
+//   if (!fellow) return res.status(404).send(`No fellow with the id ${id}`);
+//   res.send(fellow);
+// };
 
-// app.post('/api/fellows', createFellow);
-const createFellow = (req, res, next) => {
-  // get the fellowName from the body
-  const { fellowName } = req.body; // The POST request body will be an object: `{ fellowName: 'name' }`
-  // use it to make a new fellow object
-  const newFellow = {
-    name: fellowName,
-    id: getId()
-  };
-  // add the fellow object to the list
-  fellowsList.push(newFellow)
-  // send back the new fellow
-  res.send(newFellow);
-};
+// // app.post('/api/fellows', createFellow);
+// const createFellow = (req, res, next) => {
+//   // get the fellowName from the body
+//   const { fellowName } = req.body; // The POST request body will be an object: `{ fellowName: 'name' }`
+//   // use it to make a new fellow object
+//   const newFellow = {
+//     name: fellowName,
+//     id: getId()
+//   };
+//   // add the fellow object to the list
+//   fellowsList.push(newFellow)
+//   // send back the new fellow
+//   res.send(newFellow);
+// };
 
-// app.patch('/api/fellows/:id', updateFellow);
-const updateFellow = (req, res, next) => {
-  console.log(req.body, req.params)
-  const fellowToUpdate = fellowsList.find((fellow) => fellow.id === Number(req.params.id))
-  if (!fellowToUpdate) return res.status(404).send(`No fellow with the id ${id}`);
+// // app.patch('/api/fellows/:id', updateFellow);
+// const updateFellow = (req, res, next) => {
+//   console.log(req.body, req.params)
+//   const fellowToUpdate = fellowsList.find((fellow) => fellow.id === Number(req.params.id))
+//   if (!fellowToUpdate) return res.status(404).send(`No fellow with the id ${id}`);
 
-  fellowToUpdate.name = req.body.fellowName;
-  res.send(fellowToUpdate)
-}
+//   fellowToUpdate.name = req.body.fellowName;
+//   res.send(fellowToUpdate)
+// }
 
-// app.delete('/api/fellows/:id', deleteFellow);
-const deleteFellow = (req, res, next) => {
-  const fellowIndexToDelete = fellowsList.findIndex((fellow) => fellow.id === Number(req.params.id))
-  fellowsList.splice(fellowIndexToDelete, 1);
-  res.sendStatus(203);
-}
+// // app.delete('/api/fellows/:id', deleteFellow);
+// const deleteFellow = (req, res, next) => {
+//   const fellowIndexToDelete = fellowsList.findIndex((fellow) => fellow.id === Number(req.params.id))
+//   fellowsList.splice(fellowIndexToDelete, 1);
+//   res.sendStatus(203);
+// }
 
 ////////////////////////
 // Endpoints

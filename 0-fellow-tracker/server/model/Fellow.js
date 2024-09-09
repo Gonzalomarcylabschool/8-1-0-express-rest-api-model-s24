@@ -65,4 +65,14 @@ console.log(Fellow.delete(2))
 console.log(Fellow.list())
 */
 
+// const ben = new Fellow('ben');
+// const zo = new Fellow('zo');
+// const carmen = new Fellow('carmen');
+// const gonzalo = new Fellow('gonzalo');
+
+// console.log(Fellow.list())
+// console.log(Fellow.find(0))
+// console.log(Fellow.editName(1, 'ZO!!'))
+// console.log(Fellow.delete(2))
+// console.log(Fellow.list())
 module.exports = Fellow;
