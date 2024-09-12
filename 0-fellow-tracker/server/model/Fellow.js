@@ -10,7 +10,7 @@ the collection of fellows.
 */
 class Fellow {
   static #all = [];
-
+  #post = []
   constructor(name) { // Create
     this.id = getId();
     this.name = name;
@@ -46,6 +46,13 @@ class Fellow {
 
     Fellow.#all.length = 0;
     return Fellow.#all;
+  }
+
+  addPost(post) {
+    this.#post.push(post)
+  }
+  getPost() {
+    return [...this.#post]
   }
 }
 

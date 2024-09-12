@@ -1,3 +1,4 @@
+// ES6 module syntax
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import FellowDetails from './pages/FellowDetails';

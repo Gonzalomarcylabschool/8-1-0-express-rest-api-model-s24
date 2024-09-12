@@ -40,10 +40,20 @@ const deleteFellow = (req, res) => {
   res.sendStatus(statusCode);
 }
 
+const addFellowPost = (req, res) => {
+  res.send('working');
+}
+
+const getAllFellowPosts = (req, res) => {
+  res.send("fellow.getPost()");
+}
+
 module.exports = {
   serveFellows,
   serveFellow,
   createFellow,
   updateFellow,
-  deleteFellow
+  deleteFellow,
+  addFellowPost,
+  getAllFellowPosts
 };

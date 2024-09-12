@@ -64,16 +64,16 @@ console.log(Fellow.delete(2))
 console.log(Fellow.list())
 */
 
-// Create
-const ben = new Fellow('ben');
-const zo = new Fellow('zo');
-const carmen = new Fellow('carmen');
-const gonzalo = new Fellow('gonzalo');
+// // Create
+// const ben = new Fellow('ben');
+// const zo = new Fellow('zo');
+// const carmen = new Fellow('carmen');
+// const gonzalo = new Fellow('gonzalo');
 
-console.log(Fellow.list()) // Read
-console.log(Fellow.find(3)) // Read
-console.log(Fellow.editName(3, 'CARMEN!!!!')) // Update
-console.log(Fellow.delete(4)) // Delete
-console.log(Fellow.list()) // Read
+// console.log(Fellow.list()) // Read
+// console.log(Fellow.find(3)) // Read
+// console.log(Fellow.editName(3, 'CARMEN!!!!')) // Update
+// console.log(Fellow.delete(4)) // Delete
+// console.log(Fellow.list()) // Read
 
 module.exports = Fellow;

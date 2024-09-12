@@ -6,7 +6,9 @@ const {
   serveFellow,
   createFellow,
   updateFellow,
-  deleteFellow
+  deleteFellow,
+  getAllFellowPosts,
+  addFellowPost
 } = require('./controllers/fellowControllers');
 
 // why do we need an absolute path to the frontend/dist folder?
@@ -103,12 +105,19 @@ app.use(parseJSON);   // Parses request body JSON
 ////////////////////////
 // Endpoints
 ////////////////////////
-
+// /api/resource
 app.get('/api/fellows', serveFellows); // get all
+// /api/resource/:resourceId
 app.get('/api/fellows/:id', serveFellow); // get one
+
 app.post('/api/fellows', createFellow); // create
 app.patch('/api/fellows/:id', updateFellow); // update
 app.delete('/api/fellows/:id', deleteFellow); // delete
+
+
+
+app.post('api/posts', addFellowPost)
+app.get('api/fellows/:id/posts', getAllFellowPosts)
 
 app.get('/api/ben', (req, res) => {
   res.send('ben')
@@ -122,6 +131,7 @@ app.get('/api/benSays/hello', (req, res) => {
 // The pattern is: /api/resource/:resourceId/subResource/:subResourceId
 
 // app.get('/api/fellows/:id/posts', serveFellowPosts); // get one
+
 // app.patch('/api/fellows/:id/posts/:postId', serveFellowPosts); // get one
 // PATCH /api/fellows/1/posts/4
 
